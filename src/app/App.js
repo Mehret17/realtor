@@ -12,7 +12,7 @@ class App extends Component {
   state = {
     listings: [],
   }
-  componentDidMount() {
+  componentDidMount () {
     connection();
     listingRequests.getRequest()
       .then((listings) => {
