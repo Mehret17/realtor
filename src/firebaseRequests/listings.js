@@ -2,12 +2,12 @@ import axios from 'axios';
 import constants from '../constants';
 
 const getRequest = () => {
-  return new Promise ((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     axios
       .get(`${constants.firebaseConfig.databaseURL}/listings.json`)
       .then((res) => {
         const listings = [];
-        if (res.data !==null) {
+        if (res.data !== null) {
           Object.keys(res.data).forEach((key) => {
             res.data[key].id = key;
             listings.push(res.data[key]);
@@ -21,4 +21,17 @@ const getRequest = () => {
   });
 };
 
-export default {getRequest};
+const postRequest = (listing) => {
+  return new Promise((resolve, reject) => {
+    axios
+      .post(`${constants.firebaseConfig.databaseURL}/listings.json`, listing)
+      .then((res) => {
+        resolve(res.data);
+      })
+      .catch((err) => {
+        reject(err);
+      });
+  });
+};
+
+export default { getRequest, postRequest };
